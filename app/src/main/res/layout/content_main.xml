@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_dark_grey"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="e.nottdar.androidchat.ui.main_screen.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="ChatRoom, go nuts !! "
+        android:textColor="@color/yellow"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        style="@style/FO_Rv_style"
+        android:layout_above="@+id/view"
+        android:layout_below="@+id/tv"
+        android:layout_marginTop="10dp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_above="@+id/etx"
+        android:background="@color/blue_dark_grey" />
+
+    <EditText
+        android:id="@+id/etx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btn"
+        android:backgroundTint="@color/yellow"
+        android:hint="thoughts any ?"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
+        android:textColor="#fff"
+        android:textColorHint="@color/yellow" />
+
+    <Button
+        android:id="@+id/btn"
+        style="@style/Btn_sendMsg"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="SEND" />
+
+
+</RelativeLayout>

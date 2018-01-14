@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/SignUp_coodrinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="e.nottdar.androidchat.ui.login.LoginActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_black">
+
+
+        <ImageView
+            android:id="@+id/SignUp_Imv"
+            style="@style/SignUp_imv_main_style"
+            app:srcCompat="@drawable/ic_footer_rainbow" />
+
+        <LinearLayout
+            android:id="@+id/SignUp_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/SignUp_Imv"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/SignUp_TIPL_email_id"
+                style="@style/SignUp_TIPL_Email_Style"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                app:errorEnabled="true"
+                app:errorTextAppearance="@style/MyAppTheme.TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/SignUp_Etx_UserMail_id"
+                    style="@style/SignUp_Etx_Email_Style" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/SignUp_TIPL_password_id"
+                style="@style/SignUp_TIPL_Password_Style"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                app:errorEnabled="true"
+                app:errorTextAppearance="@style/MyAppTheme.TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/SignUp_Etx_Pwd_id"
+                    style="@style/SignUp_Etx_passWord_Style" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/SignUp_Btn_Register_id"
+                style="@style/SignUp_Btn_Register_style"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp" />
+        </LinearLayout>
+
+        <com.github.jlmd.animatedcircleloadingview.AnimatedCircleLoadingView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/SignUp_progress_view_id"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/SignUp_linear"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:visibility="gone"
+            app:mainColor="@color/snackbar_email_check" />
+
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
