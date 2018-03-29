@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:id="@+id/ims_text_message_body_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/rounded_rectangle_green"
+        android:maxWidth="240dp"
+        android:padding="8dp"
+        android:text="hello, hello!"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ims_text_message_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="4dp"
+        android:text="11:40"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ims_text_message_body_tv"
+        app:layout_constraintRight_toLeftOf="@+id/ims_text_message_body_tv" />
+
+</android.support.constraint.ConstraintLayout>

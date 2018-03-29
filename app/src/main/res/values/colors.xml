@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!---->
+    <color name="colorPrimary">@color/blue_dark_grey</color>
+    <color name="colorPrimaryDark">@color/blue_dark_grey</color>
+    <color name="colorAccent">#ffef40</color>
+    <color name="green">#43a96f</color>
+    <color name="common_black">#212121</color>
+    <color name="yellow">#fff562</color>
+    <color name="blue_dark_grey">#263238</color>
+
+    <!--#212121-->
+    <color name="snackbar_username_check">#fa942f</color>
+    <color name="snackbar_email_check">#E91E63</color>
+    <color name="snackbar_pass_check">#FFEB3B</color>
+    <color name="snackbar_cred_not_match">#c232e2</color>
+    <color name="snackbar_not_registered">#03A9F4</color>
+    <color name="snackbar_login_success">@color/green</color>
+    <color name="snackbar_signup_already_register">#34c9a1</color>
+    <color name="snackbar_pwd_reset_success">#34c9a1</color>
+    <color name="default_name_background">#bd22ff</color>
+
+</resources>

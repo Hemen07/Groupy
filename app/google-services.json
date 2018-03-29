@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "879226422512",
+    "firebase_url": "https://chatroom-958ee.firebaseio.com",
+    "project_id": "chatroom-958ee",
+    "storage_bucket": "chatroom-958ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879226422512:android:6313bc53fb92d9dd",
+        "android_client_info": {
+          "package_name": "redfox.chatroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879226422512-i33hhbflc6ou4iq0k1pfpa6jvitpuviu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "redfox.chatroom",
+            "certificate_hash": "0b6701b3a97c91c71ddba5cbe3698b3ea4ab043c"
+          }
+        },
+        {
+          "client_id": "879226422512-bv3o38mlfvdo8qrahn4ott0c2s1jqm13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT4UXspON6Xm9wjUHpUxB0Wb7AssxHzW4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879226422512-bv3o38mlfvdo8qrahn4ott0c2s1jqm13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
