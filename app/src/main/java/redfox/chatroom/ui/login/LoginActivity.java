@@ -86,8 +86,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuthCall
         setUpProgress();
         setUpFireBase();
         setUpNetDialog();
-
-
     }
 
     private void setUpSharedPref() {
@@ -123,16 +121,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuthCall
         utilNetDialog = new UtilNetDialog(this, LoginActivity.this);
         utilNetDialog.initExitDialog();
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void setUpAnimations() {
-  /*      Slide slide = new Slide();
-        slide.setDuration(800);
-        slide.setSlideEdge(Gravity.END);
-        getWindow().setEnterTransition(slide);*/
-
-    }
-
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @OnClick({R.id.SignIn_Btn_Login_id, R.id.SignIn_Btn_Register_id})
