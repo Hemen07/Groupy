@@ -4,34 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_dark_grey"
+    android:background="@drawable/message_background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="e.nottdar.androidchat.ui.main_screen.MainActivity"
+    tools:context="redfox.chatroom.ui.main_screen.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:id="@+id/tv"
+
+    <View
+        android:id="@+id/view_header"
         android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/snackbar_not_registered" />
+
+    <ImageView
+        android:id="@+id/imv_refresh"
+        android:layout_width="50dp"
         android:layout_height="30dp"
-        android:gravity="center"
-        android:text="ChatRoom, go nuts !! "
-        android:textColor="@color/yellow"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:layout_below="@+id/view_header"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        app:srcCompat="@drawable/ic_refresh"
+        tools:ignore="ContentDescription" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        style="@style/FO_Rv_style"
-        android:layout_above="@+id/view"
-        android:layout_below="@+id/tv"
-        android:layout_marginTop="10dp" />
+        style="@style/recyclerView_style"
+        android:layout_above="@+id/text_dot_loader"
+        android:layout_below="@+id/imv_refresh"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="2dp"
+        tools:listitem="@layout/item_message_sent" />
 
-    <View
-        android:id="@+id/view"
+    <com.bhargavms.dotloader.DotLoader
+        android:id="@+id/text_dot_loader"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="15dp"
         android:layout_above="@+id/etx"
-        android:background="@color/blue_dark_grey" />
+        android:layout_marginLeft="10dp"
+        android:background="@android:color/transparent"
+        android:visibility="invisible"
+        app:color_array="@array/dot_colors"
+        app:dot_radius="4dp"
+        app:number_of_dots="3" />
 
     <EditText
         android:id="@+id/etx"
@@ -39,19 +53,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/btn"
-        android:backgroundTint="@color/yellow"
-        android:hint="thoughts any ?"
+        android:backgroundTint="@color/snackbar_not_registered"
+        android:hint="@string/thoughts_any"
+        android:inputType="text"
         android:paddingBottom="15dp"
         android:paddingLeft="10dp"
         android:textColor="#fff"
-        android:textColorHint="@color/yellow" />
+        android:textColorHint="@color/snackbar_not_registered" />
 
     <Button
         android:id="@+id/btn"
         style="@style/Btn_sendMsg"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="SEND" />
+        android:text="@string/sendBtnText" />
 
 
 </RelativeLayout>

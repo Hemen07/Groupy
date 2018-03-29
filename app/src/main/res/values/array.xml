@@ -13,4 +13,11 @@
         <item name="brown_500" type="color">#795548</item>
     </array>
 
+    <array name="dot_colors">
+        <item>@color/snackbar_email_check</item>
+        <item>@color/snackbar_signup_already_register</item>
+        <item>@color/snackbar_not_registered</item>
+    </array>
+
+
 </resources>

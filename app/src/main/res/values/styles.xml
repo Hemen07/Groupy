@@ -24,8 +24,8 @@
     <!--Sign IN-->
     <style name="SignIn_imv_main_style">
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
     </style>
 
     <style name="SignIn_TIPL_Email_Style" parent="@android:style/TextAppearance">
@@ -45,9 +45,11 @@
         <item name="android:theme">@style/textColorHintTheme</item>
         <item name="android:paddingBottom">15dp</item>
         <item name="android:inputType">textEmailAddress|textCapSentences</item>
-        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/green</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">
+            @color/snackbar_not_registered
+        </item>
         <item name="android:hint">Email</item>
-        <item name="android:textColor">#ffef40</item>
+        <item name="android:textColor">@color/snackbar_not_registered</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:layout_width">match_parent</item>
@@ -58,9 +60,11 @@
         <item name="android:theme">@style/textColorHintTheme</item>
         <item name="android:paddingBottom">15dp</item>
         <item name="android:inputType">textVisiblePassword</item>
-        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/green</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">
+            @color/snackbar_not_registered
+        </item>
         <item name="android:hint">Password</item>
-        <item name="android:textColor">#ffef40</item>
+        <item name="android:textColor">@color/snackbar_not_registered</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:layout_width">match_parent</item>
@@ -71,7 +75,7 @@
     <!--btn LOGIN-->
     <style name="SignIn_Btn_submit_style">
         <item name="android:theme">@style/submitTheme</item>
-        <item name="android:textColor">@color/yellow</item>
+        <item name="android:textColor">#fff</item>
         <item name="android:text">LOG IN</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
@@ -81,16 +85,18 @@
 
     <!--btn Register-->
     <style name="SignIn_Btn_Register_style">
-        <item name="android:textColor">#fff</item>
+        <item name="android:textColor">@color/snackbar_username_check</item>
         <item name="android:text">Don't have an Account? Sign UP</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="submitTheme">
-        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/green</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">
+            @color/snackbar_not_registered
+        </item>
         <item name="android:colorControlHighlight" tools:targetApi="lollipop">
             @color/blue_dark_grey
         </item>
@@ -105,7 +111,7 @@
     </style>
 
     <style name="textColorHintTheme">
-        <item name="android:textColorHint">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/snackbar_not_registered</item>
     </style>
 
     <style name="fab">
@@ -120,8 +126,8 @@
     <!--Sign UP-->
     <style name="SignUp_imv_main_style">
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
     </style>
 
     <style name="SignUp_TIPL_Name_Style" parent="@android:style/TextAppearance">
@@ -148,9 +154,10 @@
         <item name="android:theme">@style/textColorHintTheme</item>
         <item name="android:paddingBottom">15dp</item>
         <item name="android:inputType">textEmailAddress|textCapSentences</item>
-        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/green</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/snackbar_email_check
+        </item>
         <item name="android:hint">Name</item>
-        <item name="android:textColor">#ffef40</item>
+        <item name="android:textColor">@color/snackbar_email_check</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:layout_width">match_parent</item>
@@ -161,7 +168,7 @@
         <item name="android:theme">@style/textColorHintTheme</item>
         <item name="android:paddingBottom">15dp</item>
         <item name="android:inputType">textEmailAddress|textCapSentences</item>
-        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/green</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/yellow</item>
         <item name="android:hint">Email</item>
         <item name="android:textColor">#ffef40</item>
         <item name="android:textSize">15sp</item>
@@ -174,7 +181,7 @@
         <item name="android:theme">@style/textColorHintTheme</item>
         <item name="android:paddingBottom">15dp</item>
         <item name="android:inputType">textVisiblePassword</item>
-        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/green</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/yellow</item>
         <item name="android:hint">Password</item>
         <item name="android:textColor">#ffef40</item>
         <item name="android:textSize">16sp</item>
@@ -219,7 +226,7 @@
 
     <style name="Profile_Btn_Style">
         <item name="android:theme">@style/SetName</item>
-        <item name="android:textColor">@color/yellow</item>
+        <item name="android:textColor">@color/snackbar_email_check</item>
         <item name="android:text">SET</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
@@ -235,7 +242,7 @@
         </item>
     </style>
 
-    <style name="FO_Rv_style">
+    <style name="recyclerView_style">
         <item name="android:scrollbarSize">2dp</item>
         <item name="android:scrollbars">vertical</item>
         <item name="android:layout_width">match_parent</item>
@@ -243,8 +250,12 @@
     </style>
 
     <style name="Btn_sendMsg">
-        <item name="android:colorControlHighlight" tools:targetApi="lollipop">#fff</item>
-        <item name="android:backgroundTint" tools:targetApi="lollipop">#ff2285</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/snackbar_email_check
+        </item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">
+            @color/snackbar_not_registered
+        </item>
         <item name="android:textColor">@color/yellow</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
@@ -259,6 +270,48 @@
         <item name="android:textColorPrimary">#FFFFFF</item>
         <!-- Used for the background -->
         <item name="android:background">#a92ec7</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+    <!--Password reset-->
+    <!--btn Cancel-->
+    <style name="PWD_DIALOG_CANCEL_STYLE">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:text">CANCEL</item>
+        <item name="android:textColor">#f1314b</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--btn Submit-->
+    <style name="PWD_DIALOG_SUBMIT_STYLE">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textColor">#3acf5d</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">#f32</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/snackbar_email_check</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
     </style>
 

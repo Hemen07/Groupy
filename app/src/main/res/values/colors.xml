@@ -17,4 +17,7 @@
     <color name="snackbar_not_registered">#03A9F4</color>
     <color name="snackbar_login_success">@color/green</color>
     <color name="snackbar_signup_already_register">#34c9a1</color>
+    <color name="snackbar_pwd_reset_success">#34c9a1</color>
+    <color name="default_name_background">#bd22ff</color>
+
 </resources>

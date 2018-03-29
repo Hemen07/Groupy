@@ -5,7 +5,7 @@
     android:id="@+id/SignUp_coodrinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="e.nottdar.androidchat.ui.login.LoginActivity">
+    tools:context="redfox.chatroom.ui.login.LoginActivity">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -16,7 +16,8 @@
         <ImageView
             android:id="@+id/SignUp_Imv"
             style="@style/SignUp_imv_main_style"
-            app:srcCompat="@drawable/ic_footer_rainbow" />
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/ic_cat_sign_up" />
 
         <LinearLayout
             android:id="@+id/SignUp_linear"
@@ -73,7 +74,7 @@
             android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
             android:visibility="gone"
-            app:mainColor="@color/snackbar_email_check" />
+            app:mainColor="@color/yellow" />
 
 
     </RelativeLayout>

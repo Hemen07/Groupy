@@ -1,10 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="e.nottdar.androidchat.ui.login.LoginActivity">
+    tools:context="redfox.chatroom.ui.login.LoginActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
+        android:visible="false"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/am_signout"
+        android:orderInCategory="200"
+        android:title="@string/action_signout"
+        app:showAsAction="never" />
+
+
 </menu>

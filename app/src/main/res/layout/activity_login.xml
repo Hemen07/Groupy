@@ -5,19 +5,20 @@
     android:id="@+id/coordinatorId"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="e.nottdar.androidchat.ui.login.LoginActivity">
+    tools:context="redfox.chatroom.ui.login.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/common_black"
+        android:background="#fff"
         android:orientation="vertical">
 
 
         <ImageView
             android:id="@+id/SignIn_Imv"
             style="@style/SignIn_imv_main_style"
-            app:srcCompat="@drawable/ic_footer_rainbow" />
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/ic_cat_login" />
 
         <LinearLayout
             android:id="@+id/SignIn_linear"
@@ -66,19 +67,6 @@
 
         </LinearLayout>
 
-        <!--<ProgressBar
-            android:visibility="gone"
-            android:id="@+id/SignIn_progress_view_id"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/SignIn_linear"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="20dp"
-            android:indeterminate="true"
-            android:theme="@style/ProgressBarTheme" />-->
-
 
         <com.github.jlmd.animatedcircleloadingview.AnimatedCircleLoadingView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/SignIn_progress_view_id"
@@ -91,7 +79,7 @@
             android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
             android:visibility="gone"
-            app:mainColor="@color/snackbar_email_check" />
+            app:mainColor="@color/snackbar_not_registered" />
 
 
         <Button
