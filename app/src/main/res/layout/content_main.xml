@@ -49,24 +49,28 @@
 
     <EditText
         android:id="@+id/etx"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        style="@style/etx_message_style"
         android:layout_toLeftOf="@+id/btn"
-        android:backgroundTint="@color/snackbar_not_registered"
-        android:hint="@string/thoughts_any"
-        android:inputType="text"
-        android:paddingBottom="15dp"
-        android:paddingLeft="10dp"
-        android:textColor="#fff"
-        android:textColorHint="@color/snackbar_not_registered" />
+        android:hint="@string/thoughts_any" />
 
     <Button
         android:id="@+id/btn"
         style="@style/Btn_sendMsg"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="@string/sendBtnText" />
+
+
+    <com.github.jlmd.animatedcircleloadingview.AnimatedCircleLoadingView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progBar"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        app:mainColor="@color/green" />
 
 
 </RelativeLayout>

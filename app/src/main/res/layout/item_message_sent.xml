@@ -13,7 +13,7 @@
         android:background="@drawable/rounded_rectangle_green"
         android:maxWidth="240dp"
         android:padding="8dp"
-        android:text="hello, hello!"
+        android:text="hola, Martian Kat!"
         android:textColor="#ffffff"
         android:textStyle="bold"
         app:layout_constraintRight_toRightOf="parent"

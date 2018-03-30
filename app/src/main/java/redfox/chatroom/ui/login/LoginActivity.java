@@ -5,7 +5,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -45,7 +44,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuthCall
     private final static String TAG = LoginActivity.class.getSimpleName();
     private static final boolean LOG_DEBUG = false;
 
-
     @BindView(R.id.SignIn_Imv)
     ImageView sImv;
     @BindView(R.id.SignIn_Etx_UserMail_id)
@@ -70,15 +68,11 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuthCall
 
     private UtilNetDialog utilNetDialog;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (LOG_DEBUG) Log.v(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            getWindow().setEnterTransition(new Fade());
-        }
+        setUpTransition();
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
@@ -86,6 +80,13 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuthCall
         setUpProgress();
         setUpFireBase();
         setUpNetDialog();
+    }
+
+    private void setUpTransition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setEnterTransition(new Fade());
+        }
     }
 
     private void setUpSharedPref() {
@@ -235,7 +236,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuthCall
 
     }
 
-
     private void showExitDialog() {
         utilNetDialog.showExitDialog();
     }
@@ -265,7 +265,6 @@ public class LoginActivity extends AppCompatActivity implements FirebaseAuthCall
         if (LOG_DEBUG) Log.v(TAG, " onStop()");
 
     }
-
 
     @Override
     protected void onDestroy() {

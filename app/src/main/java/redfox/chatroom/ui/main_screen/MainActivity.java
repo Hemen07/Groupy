@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Process;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bhargavms.dotloader.DotLoader;
+import com.github.jlmd.animatedcircleloadingview.AnimatedCircleLoadingView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,6 +51,7 @@ import redfox.chatroom.network.NetMonitorCallbacks;
 import redfox.chatroom.receiver.ConstantNetMonitorReceiver;
 import redfox.chatroom.ui.adapter.MessageAdapter;
 import redfox.chatroom.ui.interfaces.AdapterCallbacks;
+import redfox.chatroom.ui.interfaces.LoadMessagesCallbacks;
 import redfox.chatroom.ui.interfaces.NetDialogBtnCallbacks;
 import redfox.chatroom.ui.login.LoginActivity;
 import redfox.chatroom.ui.profile.Profile;
@@ -66,7 +67,7 @@ import redfox.chatroom.util.firebase_util.UtilFBConstants;
 import static redfox.chatroom.util.common_util.UtilConstant.NOT_TYPING;
 import static redfox.chatroom.util.common_util.UtilConstant.TYPING;
 
-public class MainActivity extends AppCompatActivity implements AdapterCallbacks, NetMonitorCallbacks, NetDialogBtnCallbacks {
+public class MainActivity extends AppCompatActivity implements AdapterCallbacks, NetMonitorCallbacks, NetDialogBtnCallbacks, LoadMessagesCallbacks {
     private final static String TAG = MainActivity.class.getSimpleName();
     private static final boolean LOG_DEBUG = false;
     @BindView(R.id.recyclerView)
@@ -87,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
     DotLoader textDotLoader;
     @BindView(R.id.toolbar_net_imv)
     ImageView imvNet;
+    @BindView(R.id.progBar)
+    AnimatedCircleLoadingView mProgbar;
 
     private SignInPref mPref;
     private SignUpModel signUpModel;
@@ -97,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
     private ValueEventListener velOneTime; //one time load at startup
     private ValueEventListener velOneTimeRefresh; //one time load when refreshed
     private ChildEventListener celLive; //live listener for specific child node changes - "messages"
-    private Handler mHandler = new Handler();
     private Thread myWorker = null;
     private DatabaseReference mRefTyping;
     private ValueEventListener velLiveTyping; //live typing listener
@@ -107,20 +109,20 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
     private UtilNetDialog utilNetDialog;
 
     private boolean initialBlockPass;//checks conditional clause for showing dialog
+    private LoadMessageThread mThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (LOG_DEBUG) Log.e(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            getWindow().setEnterTransition(new Fade());
-        }
+        setUpTransition();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        setUpProgress();
         setUpToolbar();
         setUpReceiver();
+        setUpLoadMessageInThread();
         setUpSharedPref();
         extractDataFromPref();
         setUpRecycler();
@@ -128,18 +130,18 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
 
         if (UtilNetworkDetect.checkOnline(this)) {
             initialBlockPass = true;
-            System.out.println("-------------------- net there : ");
+            if (LOG_DEBUG) System.out.println("-------------------- net there : ");
 
             setUpDataBaseRef();
             readAllOneTimeListener();
-            setUpHandlerForDelayedChildListener();
             liveTypingListener();
             setUpEtxFocusListener();
-            loadProfileBackground();
+
         } else {
             initialBlockPass = false;
-            System.out.println("xxxxxxxxxxxxxxxxxx  no net  : ");
+            if (LOG_DEBUG) System.out.println("xxxxxxxxxxxxxxxxxx  no net  : ");
         }
+        loadProfileBackground();
         setUpPalette();
 
     }
@@ -172,6 +174,17 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
         return super.onOptionsItemSelected(item);
     }
 
+    private void setUpTransition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setEnterTransition(new Fade());
+        }
+    }
+
+    private void setUpProgress() {
+        mProgbar.startIndeterminate();
+    }
+
     private void setUpToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -180,6 +193,10 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
     private void setUpReceiver() {
         mReceiver = new ConstantNetMonitorReceiver(this);
         registerReceiver();
+    }
+
+    private void setUpLoadMessageInThread() {
+        mThread = new LoadMessageThread(this, this);
     }
 
     private void setUpSharedPref() {
@@ -237,22 +254,15 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
     }
 
     private void readAllOneTimeListener() {
-        if (LOG_DEBUG) Log.d(TAG, "readAllOneTimeListener()");
+        if (LOG_DEBUG) Log.d(TAG, "readAllOneTimeListener()-------------------------------------");
+        if (mProgbar != null) mProgbar.setVisibility(View.VISIBLE);
 
         velOneTime = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                messageModelList.clear();
-
-                for (DataSnapshot item : dataSnapshot.getChildren()) {
-                    MessageModel data = item.getValue(MessageModel.class);
-                    messageModelList.add(data);
-                }
-                System.out.println("modelList size one Time Load: " + messageModelList.size());
-                msgAdapter2.notifyDataSetChanged();
-                recyclerView.smoothScrollToPosition(msgAdapter2.getItemCount());
-
+                if (LOG_DEBUG) System.out.println("----------DELEGATE TO  THREAD-----------------");
+                mThread.loadMessagesToListInBG(dataSnapshot, messageModelList, UtilConstant.ONE_TIME_OPERATION);
             }
 
             @Override
@@ -264,18 +274,11 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
 
     }
 
-    private void setUpHandlerForDelayedChildListener() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                liveChildListener();
-            }
-        }, 6000);
-    }
-
     private void liveChildListener() {
-        if (LOG_DEBUG) Log.d(TAG, "liveChildListener()");
-        if (messageModelList != null) {
+        if (LOG_DEBUG) Log.d(TAG, "liveChildListener()--------------------------------------");
+
+        if (messageModelList != null && messageModelList.size() > 0) {
+            if (LOG_DEBUG) System.out.println("Kryptonium +++++++++++++++++++++++++++++++++++");
 
             celLive = new ChildEventListener() {
                 @Override
@@ -330,6 +333,8 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
             };
 
             mRefChild.limitToLast(1).addChildEventListener(celLive);
+        } else {
+            if (LOG_DEBUG) System.out.println("BIRDMAN 000000000000000000000000000000000000000000");
         }
     }
 
@@ -376,32 +381,6 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
             }
         });
 
-    }
-
-    private void loadProfileBackground() {
-        myWorker = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String imgName = mPref.getUserName().substring(0, 1).toLowerCase().concat(".png");
-                final Bitmap bitmap = UtilImage.getBitmapFromAssets(MainActivity.this, imgName);
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        userNameToolbar.setText(mPref.getUserName());
-
-                        if (bitmap != null) {
-                            iconToolbar.setImageBitmap(bitmap);
-                        } else {
-                            iconToolbar.setImageResource(R.drawable.ic_pawprint);
-                        }
-
-                    }
-                });
-            }
-        });
-        myWorker.start();
-        myWorker.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
     }
 
     @OnClick(R.id.btn)
@@ -469,18 +448,12 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
 
     private void refreshListener() {
         if (LOG_DEBUG) Log.d(TAG, "refreshListener()");
+        if (mProgbar != null) mProgbar.setVisibility(View.VISIBLE);
         velOneTimeRefresh = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 messageModelList.clear();
-
-                for (DataSnapshot item : dataSnapshot.getChildren()) {
-                    MessageModel data = item.getValue(MessageModel.class);
-                    messageModelList.add(data);
-                }
-                if (LOG_DEBUG) Log.d(TAG, "modelList size : " + messageModelList.size());
-                msgAdapter2.notifyDataSetChanged();
-                recyclerView.smoothScrollToPosition(msgAdapter2.getItemCount());
+                mThread.loadMessagesToListInBG(dataSnapshot, messageModelList, UtilConstant.REFRESH_OPERATION);
             }
 
             @Override
@@ -525,7 +498,8 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
     @Override
     public void isContinuousNetCheck(boolean netStatus) {
         isNetThere = netStatus;
-        System.out.println("------------------------------------ net status ---------------- " + netStatus);
+        if (LOG_DEBUG)
+            System.out.println("------------------------------------ net status ---------------- " + netStatus);
 
         runOnUiThread(new Runnable() {
             @Override
@@ -554,7 +528,6 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
 
         if (initialBlockPass) {
             System.out.println(" NET WAS THERE BUT NOW NOT, SO RESTART");
-
 
             Intent intent = new Intent(MainActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -590,6 +563,88 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
     }
 
     @Override
+    public void loadMessagesInBG(String message, String whichOperation) {
+        if (LOG_DEBUG)
+            System.out.println("---------------loadMessagesInBG()-----------------------------");
+
+        if (whichOperation.equalsIgnoreCase(UtilConstant.ONE_TIME_OPERATION)) {
+            if (LOG_DEBUG) System.out.println(" ONE TIME ");
+
+            if (message.equalsIgnoreCase("FILLED")) {
+                if (LOG_DEBUG) System.out.println(" FILLED + ONE TIME");
+
+                if (LOG_DEBUG)
+                    System.out.println("modelList size one Time Load: " + messageModelList.size());
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        msgAdapter2.notifyDataSetChanged();
+                        recyclerView.smoothScrollToPosition(msgAdapter2.getItemCount());
+
+                        liveChildListener();
+                        if (mProgbar != null) mProgbar.setVisibility(View.GONE);
+
+
+                    }
+                });
+
+            } else {
+                if (LOG_DEBUG) System.out.println(" NOT FILLED + ONE TIME");
+            }
+        }
+        if (whichOperation.equalsIgnoreCase(UtilConstant.REFRESH_OPERATION)) {
+            if (LOG_DEBUG) System.out.println(" REFRESH ");
+
+            if (message.equalsIgnoreCase("FILLED")) {
+                if (LOG_DEBUG) System.out.println("  FILLED + REFRESH");
+
+                if (LOG_DEBUG) Log.d(TAG, "modelList size : " + messageModelList.size());
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        msgAdapter2.notifyDataSetChanged();
+                        recyclerView.smoothScrollToPosition(msgAdapter2.getItemCount());
+
+                        if (mProgbar != null) mProgbar.setVisibility(View.GONE);
+
+                    }
+                });
+
+            } else {
+                if (LOG_DEBUG) System.out.println(" NOT FILLED + REFRESH");
+            }
+        }
+    }
+
+    private void loadProfileBackground() {
+        myWorker = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String imgName = mPref.getUserName().substring(0, 1).toLowerCase().concat(".png");
+                final Bitmap bitmap = UtilImage.getBitmapFromAssets(MainActivity.this, imgName);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        userNameToolbar.setText(mPref.getUserName());
+
+                        if (bitmap != null) {
+                            iconToolbar.setImageBitmap(bitmap);
+                        } else {
+                            iconToolbar.setImageResource(R.drawable.ic_pawprint);
+                        }
+
+                    }
+                });
+            }
+        });
+        myWorker.start();
+        myWorker.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if (LOG_DEBUG) Log.d(TAG, " onResume()");
@@ -615,8 +670,6 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
         }
         if (celLive != null) mRefChild.removeEventListener(celLive);
 
-        if (mHandler != null) mHandler.removeCallbacks(null);
-
         if (velLiveTyping != null) mRefTyping.removeEventListener(velLiveTyping);
 
     }
@@ -625,14 +678,16 @@ public class MainActivity extends AppCompatActivity implements AdapterCallbacks,
     protected void onDestroy() {
         super.onDestroy();
         if (LOG_DEBUG) Log.d(TAG, " onDestroy()");
+
+        unRegisterReceiver();
+        mThread.destroyLoadMessageThread();
         if (myWorker != null) {
             Thread thread = myWorker;
             thread.interrupt();
             myWorker = null;
         }
-        unRegisterReceiver();
-        if (mReceiver != null) {
-            mReceiver.quitHandlerThread();
-        }
+        if (mReceiver != null) mReceiver.quitHandlerThread();
+
     }
+
 }

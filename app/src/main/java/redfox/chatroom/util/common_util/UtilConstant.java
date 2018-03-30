@@ -38,5 +38,8 @@ public class UtilConstant {
 
     public final static String DEFAULT_NAME = "Unknown_User";
 
+    public static final String ONE_TIME_OPERATION = "ONE_TIME_OPERATION";
+    public static final String REFRESH_OPERATION = "REFRESH_OPERATION";
+
 
 }

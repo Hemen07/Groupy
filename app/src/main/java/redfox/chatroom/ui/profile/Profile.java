@@ -1,13 +1,16 @@
 package redfox.chatroom.ui.profile;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 import com.github.jlmd.animatedcircleloadingview.AnimatedCircleLoadingView;
@@ -59,8 +62,10 @@ public class Profile extends AppCompatActivity implements FirebaseAuthCallbacks,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
         if (LOG_DEBUG) Log.e(TAG, "onCreate()");
+        setUpTransition();
+
+        setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
 
         intentOperation(getIntent());
@@ -69,6 +74,13 @@ public class Profile extends AppCompatActivity implements FirebaseAuthCallbacks,
         setUpProgressBar();
         setUpFireBase();
         setUpNetDialog();
+    }
+
+    private void setUpTransition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setEnterTransition(new Fade());
+        }
     }
 
     private void intentOperation(Intent intent) {
@@ -99,7 +111,6 @@ public class Profile extends AppCompatActivity implements FirebaseAuthCallbacks,
         utilNetDialog.initExitDialog();
     }
 
-
     private void setUpName() {
         String name = pEtxName.getText().toString().trim();
 
@@ -122,7 +133,6 @@ public class Profile extends AppCompatActivity implements FirebaseAuthCallbacks,
             showExitDialog();
         }
     }
-
 
     @Override
     public void inputErrorCallbacks(String message) {
@@ -220,7 +230,6 @@ public class Profile extends AppCompatActivity implements FirebaseAuthCallbacks,
         if (LOG_DEBUG) Log.e(TAG, " onStop()");
 
     }
-
 
     @Override
     protected void onDestroy() {

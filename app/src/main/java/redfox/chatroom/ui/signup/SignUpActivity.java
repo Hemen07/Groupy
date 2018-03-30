@@ -67,20 +67,21 @@ public class SignUpActivity extends AppCompatActivity implements FirebaseAuthCal
     protected void onCreate(Bundle savedInstanceState) {
         if (LOG_DEBUG) Log.e(TAG, " onCreate()");
         super.onCreate(savedInstanceState);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            getWindow().setEnterTransition(new Fade());
-        }
+        setUpTransition();
 
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
 
         setUpProgressBar();
         setUpFireBase();
-
         setUpNetDialog();
+    }
 
+    private void setUpTransition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setEnterTransition(new Fade());
+        }
     }
 
     private void setUpProgressBar() {
@@ -96,15 +97,6 @@ public class SignUpActivity extends AppCompatActivity implements FirebaseAuthCal
         utilNetDialog.initExitDialog();
     }
 
-   /* @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void setUpAnimations() {
-        Slide slide = new Slide();
-        slide.setDuration(800);
-        slide.setSlideEdge(Gravity.END);
-        getWindow().setEnterTransition(slide);
-
-    }*/
-
     @OnClick(R.id.SignUp_Btn_Register_id)
     public void onViewClicked() {
         if (LOG_DEBUG) Log.i(TAG, "btn Tapped");
@@ -113,7 +105,6 @@ public class SignUpActivity extends AppCompatActivity implements FirebaseAuthCal
         else {
             showExitDialog();
         }
-
     }
 
     private void setUpSignUp() {
@@ -203,7 +194,6 @@ public class SignUpActivity extends AppCompatActivity implements FirebaseAuthCal
         }
     }
 
-
     private void showExitDialog() {
         utilNetDialog.showExitDialog();
     }
@@ -213,12 +203,10 @@ public class SignUpActivity extends AppCompatActivity implements FirebaseAuthCal
         finish();
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         if (LOG_DEBUG) Log.e(TAG, " onResume()");
-
     }
 
     @Override
@@ -232,16 +220,12 @@ public class SignUpActivity extends AppCompatActivity implements FirebaseAuthCal
     protected void onStop() {
         super.onStop();
         if (LOG_DEBUG) Log.e(TAG, " onStop()");
-
     }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (LOG_DEBUG) Log.e(TAG, " onDestroy()");
-
     }
-
 
 }
