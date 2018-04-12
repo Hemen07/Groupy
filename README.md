@@ -1,6 +1,6 @@
 # GroupY
 : Group Chatroom backed by Firebase Family    
-: Real time conversation
+: Real time conversation  
 : Get notified anytime  
 
 Pull and add google gson config file and you are good to go.
