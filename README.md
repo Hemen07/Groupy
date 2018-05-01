@@ -11,7 +11,7 @@ Want to listen notifications beyond app lifecycle, Use FCM Cloud Functions, easy
 
 -> Grab the sample apk : [apk-debug.apk](https://github.com/Hemen07/CHATROOM/blob/master/app-debug.apk)
 
-- Incoming Notifiaction Snaps: 
+- Incoming Notification Snaps: 
 
 <img src="https://github.com/Hemen07/Groupy/blob/master/Notification1.png" width="300"/> <img src="https://github.com/Hemen07/Groupy/blob/master/Notification2.png" width="300"/>
 
