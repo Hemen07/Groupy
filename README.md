@@ -9,13 +9,13 @@ Pull and add google gson config file and you are good to go.
 Want to listen notifications beyond app lifecycle, Use FCM Cloud Functions, easy to set up w/o creating app server    
 [Visit here -](https://firebase.google.com/docs/functions/use-cases)
 
-Grab the sample apk : [apk-debug.apk](https://github.com/Hemen07/CHATROOM/blob/master/app-debug.apk)
+-> Grab the sample apk : [apk-debug.apk](https://github.com/Hemen07/CHATROOM/blob/master/app-debug.apk)
 
-Incoming Notifiaction Snaps: 
+- Incoming Notifiaction Snaps: 
 
 <img src="https://github.com/Hemen07/Groupy/blob/master/Notification1.png" width="300"/> <img src="https://github.com/Hemen07/Groupy/blob/master/Notification2.png" width="300"/>
 
-ChatScreen Home Snap: 
+- ChatScreen Home Snap: 
 
 <img src="https://github.com/Hemen07/Groupy/blob/master/ChatScreen.png" width="300"/>
 
