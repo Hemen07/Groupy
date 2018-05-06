@@ -3,8 +3,8 @@
 : Real time conversation  
 : Get notified anytime  
 
-Pull and add google gson config file and you are good to go.
-*Basic gearing up source code provided ;) only apk will be LATEST 
+Pull and add google gson config file and you are good to go.  
+*Basic gearing up source code provided ;) only apk will be maintained to LATEST VERSION 
 
 #For FCM  
 Want to listen notifications beyond app lifecycle, Use FCM Cloud Functions, easy to set up w/o creating app server    
