@@ -4,8 +4,9 @@
 : Get notified anytime  
 
 Pull and add google gson config file and you are good to go.  
-*****  Basic gearing up source code provided ;) Updated Code no longer will be posted here ******   
-only apk will be maintained to LATEST VERSION 
+*****  Basic gearing up source code provided ;)  
+****** Source Code is outdated like ICE-AGE, and Updated Source code moved to private Repo.          
+****** only LATEST VERSION of apk will be made availble from private Repo.
 
 #For FCM  
 Want to listen notifications beyond app lifecycle, Use FCM Cloud Functions, easy to set up w/o creating app server    
