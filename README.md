@@ -9,7 +9,14 @@
 # EXTRAS 
 Pull and add google gson config file and you are good to go.  
 ****** Basic gearing up source code provided ;)  
-****** Source Code is outdated like ICE-AGE, and Updated Source code moved to private Repo.          
+****** Source Code is outdated like ICE-AGE, and Updated Source code moved to private Repo. 
+
+# CODE OPTIMIZATION 
+- This is old code, and I din't optimize since I just wanted to test the firebase cloud messaging functionality.  
+: Use Room as abstraction over sqlite  
+: For Singleton use Double locking or holder pattern.  
+: Learn to use thredpoolexecutor  
+: mvp clean and mvvm with RxJava or Data Binding.  
 
 #For Cloud Function  
 share real time messages among devices w/o creating app server.    
