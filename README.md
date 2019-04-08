@@ -3,6 +3,10 @@
 : Real time conversation  
 : Get notified anytime  
 
+# IMPORTANT 
+: no architecture has been implemented deliberately, kindly learn mvp clean and mvvm (if not known)   
+
+# EXTRAS 
 Pull and add google gson config file and you are good to go.  
 ****** Basic gearing up source code provided ;)  
 ****** Source Code is outdated like ICE-AGE, and Updated Source code moved to private Repo.          
